@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Education;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class EducationController extends Controller
 {
@@ -14,7 +17,8 @@ class EducationController extends Controller
      */
     public function index()
     {
-        //
+        $educations = Education::all();
+        return view('admin.pages.educations.index', compact('educations'));
     }
 
     /**
@@ -24,7 +28,7 @@ class EducationController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.pages.educations.create');
     }
 
     /**
@@ -35,7 +39,19 @@ class EducationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255|unique:educations',
+            'content' => 'required|string|max:4294967295',
+        ]);
+
+        Education::create([
+            'user_id' => Auth::user()->id,
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'content' => $request->content,
+        ]);
+
+        return redirect()->route('admin.educations.index')->with('toast_success', 'Berhasil menambahkan data.');
     }
 
     /**
@@ -57,7 +73,8 @@ class EducationController extends Controller
      */
     public function edit($id)
     {
-        //
+        $education = Education::findOrFail($id);
+        return view('admin.pages.educations.edit', compact('education'));
     }
 
     /**
@@ -69,7 +86,23 @@ class EducationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $education = Education::findOrFail($id);
+
+        $request->validate([
+            'title' => 'required|string|max:255|unique:educations,title,' . $education->id . ',id',
+            'content' => 'required|string|max:65535',
+            'show_education' => 'nullable|numeric',
+        ]);
+
+        $education->update([
+            'user_id' => Auth::user()->id,
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'content' => $request->content,
+            'show_education' => $request->show_education ?? 0,
+        ]);
+
+        return redirect()->route('admin.educations.index')->with('toast_success', 'Berhasil menyimpan data.');
     }
 
     /**
@@ -80,6 +113,10 @@ class EducationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $education = Education::findOrFail($id);
+
+        $education->delete();
+
+        return back()->with('toast_success', 'Berhasil menghapus data.');
     }
 }

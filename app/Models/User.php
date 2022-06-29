@@ -23,9 +23,11 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string $email
  * @property Carbon|null $email_verified_at
  * @property string $password
+ * @property int|null $is_activated
  * @property string|null $remember_token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property string|null $userscol
  *
  * @property Collection|About[] $abouts
  * @property Collection|Education[] $education
@@ -39,6 +41,10 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
 	protected $table = 'users';
+
+	protected $casts = [
+		'is_activated' => 'int'
+	];
 
 	protected $dates = [
 		'email_verified_at'
@@ -56,7 +62,9 @@ class User extends Authenticatable
 		'email',
 		'email_verified_at',
 		'password',
-		'remember_token'
+		'is_activated',
+		'remember_token',
+		'userscol'
 	];
 
 	public function abouts()

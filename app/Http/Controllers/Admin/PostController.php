@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -14,7 +17,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::all();
+        return view('admin.pages.posts.index', compact('posts'));
     }
 
     /**
@@ -24,7 +28,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.pages.posts.create');
     }
 
     /**
@@ -35,7 +39,21 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255|unique:posts',
+            'content' => 'required|string|max:4294967295',
+            'type' => 'required|string',
+        ]);
+
+        Post::create([
+            'user_id' => Auth::user()->id,
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'type' => $request->type,
+            'content' => $request->content,
+        ]);
+
+        return redirect()->route('admin.posts.index')->with('toast_success', 'Berhasil menambahkan data.');
     }
 
     /**
@@ -57,7 +75,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        return view('admin.pages.posts.edit', compact('post'));
     }
 
     /**
@@ -69,7 +88,25 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        $request->validate([
+            'title' => 'required|string|max:255|unique:posts,title,' . $post->id . ',id',
+            'content' => 'required|string|max:65535',
+            'type' => 'required|string',
+            'show_post' => 'nullable|numeric',
+        ]);
+
+        $post->update([
+            'user_id' => Auth::user()->id,
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'content' => $request->content,
+            'type' => $request->type,
+            'show_post' => $request->show_post ?? 0,
+        ]);
+
+        return redirect()->route('admin.posts.index')->with('toast_success', 'Berhasil menyimpan data.');
     }
 
     /**
@@ -80,6 +117,10 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        $post->delete();
+
+        return back()->with('toast_success', 'Berhasil menghapus data.');
     }
 }
