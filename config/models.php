@@ -280,7 +280,11 @@ return [
         */
 
         'except' => [
+            'failed_jobs',
             'migrations',
+            'password_resets',
+            'personal_access_tokens',
+            'users',
         ],
 
         /*
@@ -416,7 +420,7 @@ return [
         |--------------------------------------------------------------------------
         | Move $fillable property to base files
         |--------------------------------------------------------------------------
-        | When base_files is true you can set fillable_in_base_files to true 
+        | When base_files is true you can set fillable_in_base_files to true
         | if you want the $fillable to be generated in base files
         |
         */
