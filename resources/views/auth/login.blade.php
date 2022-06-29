@@ -1,56 +1,102 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+@extends('layouts.auth')
 
-        <!-- Session Status -->
-        <x-auth-session-status class="mb-4" :status="session('status')" />
+@section('title')
+    Login
+@endsection
 
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-
-            <!-- Email Address -->
-            <div>
-                <x-label for="email" :value="__('Email')" />
-
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
+@section('content')
+    {{--begin::Authentication - Sign-in --}}
+    <div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed" style="background-image: url({{asset('themes/admin/media/illustrations/sketchy-1/14.png')}}">
+        {{--begin::Content--}}
+        <div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
+            {{--begin::Wrapper--}}
+            <div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
+                {{--begin::Form--}}
+                <form class="form w-100" action="" method="POST">
+                    @csrf
+                    {{--begin::Heading--}}
+                    <div class="text-center mb-10">
+                        {{--begin::Title--}}
+                        <h1 class="text-dark mb-3">@yield('title')</h1>
+                        {{--end::Title--}}
+                    </div>
+                    @if (session('status'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
+                    @endif
+                    {{--begin::Heading--}}
+                    {{--begin::Input group--}}
+                    <div class="fv-row mb-10">
+                        {{--begin::Label--}}
+                        <label class="form-label fs-6 fw-bolder text-dark">Email
+                        <span class="text-danger">*</span></label>
+                        {{--end::Label--}}
+                        {{--begin::Input--}}
+                        <input class="form-control form-control-lg form-control-solid @error('email') is-invalid @enderror" type="email" name="email" value="{{ old('email') }}" autofocus required />
+                        @error('email')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        {{--end::Input--}}
+                    </div>
+                    {{--end::Input group--}}
+                    {{--begin::Input group--}}
+                    <div class="fv-row mb-10">
+                        {{--begin::Wrapper--}}
+                        <div class="d-flex flex-stack mb-2">
+                            {{--begin::Label--}}
+                            <label class="form-label fw-bolder text-dark fs-6 mb-0">Password
+                            <span class="text-danger">*</span></label>
+                            {{--end::Label--}}
+                            @if (Route::has('password.request'))
+                            {{--begin::Link--}}
+                                <a href="{{ route('password.request') }}" class="link-primary fs-6 fw-bolder">Lupa Password ?</a>
+                            {{--end::Link--}}
+                            @endif
+                        </div>
+                        {{--end::Wrapper--}}
+                        {{--begin::Input--}}
+                        <input class="form-control form-control-lg form-control-solid @error('password') is-invalid @enderror" name="password" type="password" autocomplete="current-password" required />
+                        @error('password')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        {{--end::Input--}}
+                    </div>
+                    {{--end::Input group--}}
+                    {{--begin::Input group--}}
+                    <div class="fv-row mb-10">
+                        <label class="form-check form-check-custom form-check-solid mb-5">
+                        <input class="form-check-input" type="checkbox" name="remember" />
+                        <span class="form-check-label fw-bold text-gray-700 fs-6">Ingat Saya
+                        </label>
+                    </div>
+                    {{--end::Input group--}}
+                    {{--begin::Actions--}}
+                    <div class="text-center">
+                        {{--begin::Submit button--}}
+                        <button type="submit" id="kt_sign_in_submit" class="btn btn-lg btn-primary w-100 mb-5">
+                        <span class="indicator-label">Log In</span>
+                        </button>
+                        {{--end::Submit button--}}
+                    </div>
+                    {{--end::Actions--}}
+                </form>
+                {{--end::Form--}}
             </div>
-
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
-
-                <x-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="current-password" />
+            {{--end::Wrapper--}}
+        </div>
+        {{--end::Content--}}
+        {{--begin::Footer--}}
+        <div class="d-flex flex-center flex-column-auto p-10">
+            {{--begin::Links--}}
+            <div class="d-flex align-items-center fw-bold fs-6">
+                <a href="https://keenthemes.com" class="text-muted text-hover-primary px-2">About</a>
+                <a href="mailto:support@keenthemes.com" class="text-muted text-hover-primary px-2">Contact</a>
+                <a href="https://1.envato.market/EA4JP" class="text-muted text-hover-primary px-2">Contact Us</a>
             </div>
-
-            <!-- Remember Me -->
-            <div class="block mt-4">
-                <label for="remember_me" class="inline-flex items-center">
-                    <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="remember">
-                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                </label>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif
-
-                <x-button class="ml-3">
-                    {{ __('Log in') }}
-                </x-button>
-            </div>
-        </form>
-    </x-auth-card>
-</x-guest-layout>
+            {{--end::Links--}}
+        </div>
+        {{--end::Footer--}}
+    </div>
+    {{--end::Authentication - Sign-in--}}
+@endsection
