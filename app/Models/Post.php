@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $user_id
  * @property string|null $title
  * @property string|null $slug
+ * @property string|null $thumbnail
  * @property string|null $content
  * @property string|null $type
  * @property int|null $show_post
@@ -39,6 +40,7 @@ class Post extends Model
 		'user_id',
 		'title',
 		'slug',
+		'thumbnail',
 		'content',
 		'type',
 		'show_post'

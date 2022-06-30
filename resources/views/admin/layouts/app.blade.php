@@ -1,4 +1,7 @@
 
+@php
+    $setting = App\Models\Setting::first()
+@endphp
 <!DOCTYPE html>
 {{--
 Author: Keenthemes
@@ -20,7 +23,9 @@ License: For each use you must have a valid license purchased only from above li
 		<link rel="canonical" href="{{ url('') }}" />
         <meta name="csrf-token" content="{{ csrf_token() }}">
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" type="image/x-icon" href="{{ asset('icons/favicon.ico') }}" />
+        @isset($setting->logo)
+            <link rel="icon" type="image/x-icon" href="{{ asset('storage/logos/' . $setting->logo) }}" />
+        @endisset
 		{{--begin::Fonts--}}
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
 		{{--end::Fonts--}}
@@ -202,6 +207,14 @@ License: For each use you must have a valid license purchased only from above li
 													<span class="bullet bullet-dot"></span>
 												</span>
 												<span class="menu-title">Pengaturan Website</span>
+											</a>
+										</div>
+                                        <div class="menu-item">
+											<a class="menu-link" href="{{ route('admin.contact-setting.index') }}">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Pengaturan Kontak</span>
 											</a>
 										</div>
                                         <div class="menu-item">

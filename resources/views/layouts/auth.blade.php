@@ -1,4 +1,6 @@
-
+@php
+    $setting = App\Models\Setting::first()
+@endphp
 <!DOCTYPE html>
 {{--
 Author: Keenthemes
@@ -22,7 +24,9 @@ License: For each use you must have a valid license purchased only from above li
 		<meta property="og:locale" content="en_US" />
 		<meta property="og:type" content="article" />
 		<meta property="og:title" content="" />
-		<link rel="shortcut icon" href="{{asset('icons/favicon.ico')}}" />
+        @isset($setting->logo)
+            <link rel="icon" type="image/x-icon" href="{{ asset('storage/logos/' . $setting->logo) }}" />
+        @endisset
 		{{--begin::Fonts--}}
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
 		{{--end::Fonts--}}

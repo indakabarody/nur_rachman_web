@@ -15,8 +15,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property string|null $website_title
  * @property string|null $logo
- * @property string|null $header_image
+ * @property string|null $hero_image
+ * @property string|null $hero_text
+ * @property string|null $accent_color
  * @property string|null $copyright_text
+ * @property string|null $address
+ * @property string|null $phone
+ * @property string|null $email
  * @property string|null $smtp_host
  * @property string|null $smtp_port
  * @property string|null $smtp_secure
@@ -38,8 +43,13 @@ class Setting extends Model
 	protected $fillable = [
 		'website_title',
 		'logo',
-		'header_image',
+		'hero_image',
+		'hero_text',
+		'accent_color',
 		'copyright_text',
+		'address',
+		'phone',
+		'email',
 		'smtp_host',
 		'smtp_port',
 		'smtp_secure',

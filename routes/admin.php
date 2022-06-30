@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AboutController as AdminAboutController;
 use App\Http\Controllers\Admin\ChangePasswordController as AdminChangePasswordController;
+use App\Http\Controllers\Admin\ContactSettingController as AdminContactSettingController;
 use App\Http\Controllers\Admin\EditProfileController as AdminEditProfileController;
 use App\Http\Controllers\Admin\EducationController as AdminEducationController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
@@ -43,5 +44,10 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'active', 'applywebs
     Route::prefix('/smtp-setting')->name('smtp-setting.')->group(function () {
         Route::get('/', [AdminSmtpSettingController::class, 'index'])->name('index');
         Route::put('/', [AdminSmtpSettingController::class, 'update'])->name('update');
+    });
+
+    Route::prefix('/contact-setting')->name('contact-setting.')->group(function () {
+        Route::get('/', [AdminContactSettingController::class, 'index'])->name('index');
+        Route::put('/', [AdminContactSettingController::class, 'update'])->name('update');
     });
 });
