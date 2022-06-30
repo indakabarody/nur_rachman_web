@@ -93,9 +93,30 @@ License: For each use you must have a valid license purchased only from above li
 								</div>
 								<div class="menu-item">
 									<div class="menu-content pt-8 pb-0">
-										<span class="menu-section text-muted text-uppercase fs-8 ls-1">Menu Admin</span>
+										<span class="menu-section text-muted text-uppercase fs-8 ls-1">Menu {{ Auth::user()->role }}</span>
 									</div>
 								</div>
+
+                                @if (Auth::user()->role == 'Super Admin')
+                                    <div class="menu-item">
+                                        <a class="menu-link" href="{{ route('admin.users.index') }}">
+                                            <span class="menu-icon">
+                                                {{--begin::Svg Icon | path: icons/duotone/Design/PenAndRuller.svg--}}
+                                                <span class="svg-icon svg-icon-2">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                        <path d="M16.0173 9H15.3945C14.2833 9 13.263 9.61425 12.7431 10.5963L12.154 11.7091C12.0645 11.8781 12.1072 12.0868 12.2559 12.2071L12.6402 12.5183C13.2631 13.0225 13.7556 13.6691 14.0764 14.4035L14.2321 14.7601C14.2957 14.9058 14.4396 15 14.5987 15H18.6747C19.7297 15 20.4057 13.8774 19.912 12.945L18.6686 10.5963C18.1487 9.61425 17.1285 9 16.0173 9Z" fill="currentColor"/>
+                                                        <rect opacity="0.3" x="14" y="4" width="4" height="4" rx="2" fill="currentColor"/>
+                                                        <path d="M4.65486 14.8559C5.40389 13.1224 7.11161 12 9 12C10.8884 12 12.5961 13.1224 13.3451 14.8559L14.793 18.2067C15.3636 19.5271 14.3955 21 12.9571 21H5.04292C3.60453 21 2.63644 19.5271 3.20698 18.2067L4.65486 14.8559Z" fill="currentColor"/>
+                                                        <rect opacity="0.3" x="6" y="5" width="6" height="6" rx="3" fill="currentColor"/>
+                                                    </svg>
+                                                </span>
+                                                {{--end::Svg Icon--}}
+                                            </span>
+                                            <span class="menu-title">Data User</span>
+                                        </a>
+                                    </div>
+                                @endif
+
                                 <div class="menu-item">
 									<a class="menu-link" href="{{ route('admin.pages.index') }}">
 										<span class="menu-icon">
@@ -156,6 +177,42 @@ License: For each use you must have a valid license purchased only from above li
 										</span>
 										<span class="menu-title">Data Tentang</span>
 									</a>
+								</div>
+                                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+									<span class="menu-link">
+										<span class="menu-icon">
+											{{--begin::Svg Icon | path: icons/duotone/Shopping/Box2.svg--}}
+											<span class="svg-icon svg-icon-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                        <rect x="0" y="0" width="24" height="24"/>
+                                                        <path d="M5,8.6862915 L5,5 L8.6862915,5 L11.5857864,2.10050506 L14.4852814,5 L19,5 L19,9.51471863 L21.4852814,12 L19,14.4852814 L19,19 L14.4852814,19 L11.5857864,21.8994949 L8.6862915,19 L5,19 L5,15.3137085 L1.6862915,12 L5,8.6862915 Z M12,15 C13.6568542,15 15,13.6568542 15,12 C15,10.3431458 13.6568542,9 12,9 C10.3431458,9 9,10.3431458 9,12 C9,13.6568542 10.3431458,15 12,15 Z" fill="currentColor"/>
+                                                    </g>
+                                                </svg>
+											</span>
+											{{--end::Svg Icon--}}
+										</span>
+										<span class="menu-title">Pengaturan</span>
+										<span class="menu-arrow"></span>
+									</span>
+									<div class="menu-sub menu-sub-accordion menu-active-bg">
+                                        <div class="menu-item">
+											<a class="menu-link" href="{{ route('admin.website-setting.index') }}">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Pengaturan Website</span>
+											</a>
+										</div>
+                                        <div class="menu-item">
+											<a class="menu-link" href="{{ route('admin.smtp-setting.index') }}">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">Pengaturan SMTP</span>
+											</a>
+										</div>
+									</div>
 								</div>
 							</div>
 							{{--end::Menu--}}
@@ -231,7 +288,7 @@ License: For each use you must have a valid license purchased only from above li
 														{{--begin::Username--}}
 														<div class="d-flex flex-column">
 															<div class="fw-bolder d-flex align-items-center fs-5">{{ Auth::user()->name }}
-															<span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">Admin</span></div>
+															<span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">{{ Auth::user()->role }}</span></div>
 															<a href="#" class="fw-bold text-muted text-hover-primary fs-7">{{ Auth::user()->email }}</a>
 														</div>
 														{{--end::Username--}}
@@ -302,8 +359,7 @@ License: For each use you must have a valid license purchased only from above li
 						<div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between">
 							{{--begin::Copyright--}}
 							<div class="text-dark order-2 order-md-1">
-								<span class="text-muted fw-bold me-1">&copy; {{{ date('Y') }}}</span>
-								<a href="{{ url('') }}" class="text-gray-800 text-hover-primary">{{ config('app.name') }}</a>
+								{{ $setting->copyright_text ?? '© ' . date('Y') . ' ' . config('app.name') }}
 							</div>
 							{{--end::Copyright--}}
 						</div>
