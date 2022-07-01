@@ -31,7 +31,7 @@
                             {{--begin::Input group--}}
                             <div class="row mb-6">
                                 <div class="form-group">
-                                    <label class="col-form-label fw-bold fs-6">Tipe</label>
+                                    <label class="col-form-label required fw-bold fs-6">Tipe</label>
                                     <select class="form-select form-select-solid @error ('type') is-invalid @enderror" aria-label="Select example" name="type">
                                         <option value="News" @if ($post->type == 'News') selected @endif>News</option>
                                         <option value="Event" @if ($post->type == 'Event') selected @endif>Event</option>
@@ -43,7 +43,7 @@
                             {{--begin::Input group--}}
                             <div class="row mb-6">
                                 <div class="form-group">
-                                    <label class="col-form-label fw-bold fs-6">Judul</label>
+                                    <label class="col-form-label required fw-bold fs-6">Judul</label>
                                     <input type="text" name="title" value="{{ old('title') ?? $post->title }}" class="form-control form-control-lg form-control-solid @error ('title') is-invalid @enderror">
                                     @error('title') <div class="invalid-feedback">{{ $message }}</div> @enderror
                                 </div>
@@ -52,7 +52,50 @@
                             {{--begin::Input group--}}
                             <div class="row mb-6">
                                 <div class="form-group">
-                                    <label class="col-form-label fw-bold fs-6">Konten</label>
+                                    <label class="col-form-label fw-bold fs-6">Thumbnail</label><br>
+                                    {{--begin::Image input--}}
+                                    <div class="image-input image-input-outline" data-kt-image-input="true">
+                                        {{--begin::Preview existing avatar--}}
+                                        @isset($post->thumbnail)
+                                            <div class="image-input-wrapper" style="background-image: url({{ asset('storage/post-thumbnails/'.$post->thumbnail) }})"></div>
+                                        @else
+                                            <div class="image-input-wrapper"></div>
+                                        @endisset
+                                        {{--end::Preview existing avatar--}}
+                                        {{--begin::Label--}}
+                                        <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change Thumbnail">
+                                            <i class="bi bi-pencil-fill fs-7"></i>
+                                            {{--begin::Inputs--}}
+                                            <input type="file" name="thumbnail" accept=".png, .jpg, .jpeg" />
+                                            <input type="hidden" name="thumbnail_remove" />
+                                            {{--end::Inputs--}}
+                                        </label>
+                                        {{--end::Label--}}
+                                        {{--begin::Cancel--}}
+                                        <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel">
+                                        <i class="bi bi-x fs-2"></i>
+                                        </span>
+                                        {{--end::Cancel--}}
+                                        {{--begin::Remove--}}
+                                        @isset($post->thumbnail)
+                                            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Delete Thumbnail">
+                                                <i class="bi bi-x fs-2"></i>
+                                            </span>
+                                        @endisset
+                                        {{--end::Remove--}}
+                                    </div>
+                                    {{--end::Image input--}}
+                                    {{--begin::Hint--}}
+                                    <div class="form-text">File type: png, jpg, jpeg, max 4 MB.</div>
+                                    {{--end::Hint--}}
+                                    @error('title') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                </div>
+                            </div>
+                            {{--end::Input group--}}
+                            {{--begin::Input group--}}
+                            <div class="row mb-6">
+                                <div class="form-group">
+                                    <label class="col-form-label required fw-bold fs-6">Konten</label>
                                     <textarea class="form-control @error ('content') is-invalid @enderror" id="content" name="content">{!! old('content') ?? $post->content !!}</textarea>
                                     @error('content') <div class="invalid-feedback">{{ $message }}</div> @enderror
                                 </div>

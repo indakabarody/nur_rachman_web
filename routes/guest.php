@@ -3,6 +3,7 @@
 use App\Http\Controllers\Guest\AboutController as GuestAboutController;
 use App\Http\Controllers\Guest\EducationController as GuestEducationController;
 use App\Http\Controllers\Guest\HomeController as GuestHomeController;
+use App\Http\Controllers\Guest\PageController as GuestPageController;
 use App\Http\Controllers\Guest\PostController as GuestPostController;
 use Illuminate\Support\Facades\Route;
 

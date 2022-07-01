@@ -10,7 +10,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $recentPosts = Post::latest()->limit(3)->get();
+        $recentPosts = Post::where('show_post', 1)->latest()->limit(3)->get();
         return view('pages.home.index', compact('recentPosts'));
     }
 }

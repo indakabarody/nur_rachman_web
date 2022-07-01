@@ -66,6 +66,16 @@ class WebsiteSettingController extends Controller
             $img->save($path . '/' . $heroImageFileName);
         }
 
+        if ($request->hero_image_remove != NULL) {
+            if ($setting->hero_image != NULL) {
+                File::delete(storage_path('app/public/hero-images/' . $setting->hero_image));
+            }
+
+            $setting->update([
+                'hero_image' => NULL,
+            ]);
+        }
+
         if ($setting == NULL) {
             Setting::create([
                 'website_title' => $request->website_title,

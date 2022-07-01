@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 class PostController extends Controller
 {
@@ -41,13 +44,28 @@ class PostController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255|unique:posts',
+            'thumbnail' => 'nullable|file|mimes:png,jpg,jpeg,gif|max:4096',
             'content' => 'required|string|max:4294967295',
             'type' => 'required|string',
         ]);
 
+        if ($request->thumbnail != NULL) {
+            $path = storage_path('app/public/post-thumbnails/');
+
+            if (!File::isDirectory($path)) {
+                File::makeDirectory($path, 0777, true);
+            }
+
+            $thumbnailFile = $request->file('thumbnail');
+            $thumbnailFileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . $thumbnailFile->getClientOriginalExtension();
+            $img = Image::make($thumbnailFile)->save($path . '/' . $thumbnailFileName);
+            $img->save($path . '/' . $thumbnailFileName);
+        }
+
         Post::create([
             'user_id' => Auth::user()->id,
             'title' => $request->title,
+            'thumbnail' => $thumbnailFileName ?? NULL,
             'slug' => Str::slug($request->title),
             'type' => $request->type,
             'content' => $request->content,
@@ -92,15 +110,41 @@ class PostController extends Controller
 
         $request->validate([
             'title' => 'required|string|max:255|unique:posts,title,' . $post->id . ',id',
+            'thumbnail' => 'nullable|file|mimes:png,jpg,jpeg,gif|max:4096',
+            'thumbnail_remove' => 'nullable|numeric',
             'content' => 'required|string|max:65535',
             'type' => 'required|string',
             'show_post' => 'nullable|numeric',
         ]);
 
+        if ($request->thumbnail != NULL) {
+            $path = storage_path('app/public/post-thumbnails/');
+
+            if (!File::isDirectory($path)) {
+                File::makeDirectory($path, 0777, true);
+            }
+
+            $thumbnailFile = $request->file('thumbnail');
+            $thumbnailFileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . $thumbnailFile->getClientOriginalExtension();
+            $img = Image::make($thumbnailFile)->save($path . '/' . $thumbnailFileName);
+            $img->save($path . '/' . $thumbnailFileName);
+        }
+
+        if ($request->thumbnail_remove != NULL) {
+            if ($post->thumbnail != NULL) {
+                File::delete(storage_path('app/public/post-thumbnails/' . $post->thumbnail));
+            }
+
+            $post->update([
+                'thumbnail' => NULL,
+            ]);
+        }
+
         $post->update([
             'user_id' => Auth::user()->id,
             'title' => $request->title,
             'slug' => Str::slug($request->title),
+            'logo' => $logoFileName ?? $post->logo,
             'content' => $request->content,
             'type' => $request->type,
             'show_post' => $request->show_post ?? 0,

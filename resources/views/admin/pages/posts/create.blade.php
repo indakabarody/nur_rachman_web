@@ -23,7 +23,7 @@
                 {{--begin::Content--}}
                 <div id="kt_account_profile_details" class="collapse show">
                     {{--begin::Form--}}
-                    <form class="form" action="{{ route('admin.posts.store') }}" method="POST">
+                    <form class="form" action="{{ route('admin.posts.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         {{--begin::Card body--}}
@@ -31,7 +31,7 @@
                             {{--begin::Input group--}}
                             <div class="row mb-6">
                                 <div class="form-group">
-                                    <label class="col-form-label fw-bold fs-6">Tipe</label>
+                                    <label class="col-form-label required fw-bold fs-6">Tipe</label>
                                     <select class="form-select form-select-solid @error ('type') is-invalid @enderror" aria-label="Select example" name="type">
                                         <option value="News">News</option>
                                         <option value="Event">Event</option>
@@ -43,7 +43,7 @@
                             {{--begin::Input group--}}
                             <div class="row mb-6">
                                 <div class="form-group">
-                                    <label class="col-form-label fw-bold fs-6">Judul</label>
+                                    <label class="col-form-label required fw-bold fs-6">Judul</label>
                                     <input type="text" name="title" value="{{ old('title') }}" class="form-control form-control-lg form-control-solid @error ('title') is-invalid @enderror">
                                     @error('title') <div class="invalid-feedback">{{ $message }}</div> @enderror
                                 </div>
@@ -52,7 +52,16 @@
                             {{--begin::Input group--}}
                             <div class="row mb-6">
                                 <div class="form-group">
-                                    <label class="col-form-label fw-bold fs-6">Konten</label>
+                                    <label class="col-form-label fw-bold fs-6">Gambar Thumbnail</label>
+                                    <input type="file" name="thumbnail" value="{{ old('thumbnail') }}" class="form-control form-control-file form-control-lg form-control-solid @error ('thumbnail') is-invalid @enderror">
+                                    @error('thumbnail') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                </div>
+                            </div>
+                            {{--end::Input group--}}
+                            {{--begin::Input group--}}
+                            <div class="row mb-6">
+                                <div class="form-group">
+                                    <label class="col-form-label required fw-bold fs-6">Konten</label>
                                     <textarea class="form-control @error ('content') is-invalid @enderror" id="content" name="content">{!! old('content') !!}</textarea>
                                     @error('content') <div class="invalid-feedback">{{ $message }}</div> @enderror
                                 </div>
