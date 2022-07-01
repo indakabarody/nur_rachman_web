@@ -29,9 +29,21 @@
                                 <div class="course-content">
                                     <div class="d-flex justify-content-between align-items-center mb-3">
                                         <h4>{{ $post->type }}</h4>
+                                        <p>{{ $post->created_at->format('d F Y') }}</p>
                                     </div>
                                     <h3><a href="{{ route('posts.show', $post->slug) }}">{{ $post->title }}</a></h3>
-                                    <p>{!! Str::limit($post->content, 30) !!}</p>
+                                    <p>{!! Str::limit(strip_tags($post->content), 255) !!}</p>
+                                    <div class="trainer d-flex justify-content-between align-items-center">
+                                        <div class="trainer-profile d-flex align-items-center">
+                                            @isset($post->user->image)
+                                                <img src="{{ asset('storage/user-images/' . $post->user->image) }}" class="img-fluid" alt="">
+                                            @else
+                                                <img src="{{ asset('themes/admin/media/avatars/blank.png') }}" class="img-fluid" alt="">
+                                            @endisset
+
+                                            <span>{{ $post->user->name }}</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

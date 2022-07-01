@@ -55,7 +55,12 @@ License: For each use you must have a valid license purchased only from above li
 					<div class="aside-logo flex-column-auto" id="kt_aside_logo">
 						{{--begin::Logo--}}
 						<a href="{{ route('admin.dashboard') }}">
-							<h3 class="h-15px logo" style="color: white">{{ config('app.name') }}</h3>
+                            @isset($setting->logo)
+                                <img src="{{ asset('storage/logos/' . $setting->logo) }}" height="30" alt="{{ config('app.name') }}">
+                                {{-- <h3 class="h-15px logo" style="color: white">{{ config('app.name') }}</h3> --}}
+                            @else
+                                <h3 class="h-15px logo" style="color: white">{{ config('app.name') }}</h3>
+                            @endisset
 						</a>
 						{{--end::Logo--}}
 						{{--begin::Aside toggler--}}

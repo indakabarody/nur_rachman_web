@@ -55,6 +55,7 @@
                                     <label class="col-form-label fw-bold fs-6">Gambar Thumbnail</label>
                                     <input type="file" name="thumbnail" value="{{ old('thumbnail') }}" class="form-control form-control-file form-control-lg form-control-solid @error ('thumbnail') is-invalid @enderror">
                                     @error('thumbnail') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                    <small class="text-muted">File type: jpg, png, gif. Recommended resolution 800 x 533 px. Max 4 MB.</small>
                                 </div>
                             </div>
                             {{--end::Input group--}}

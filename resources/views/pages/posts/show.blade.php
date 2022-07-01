@@ -20,7 +20,7 @@
         {{-- ======= About Section ======= --}}
         <section id="post" class="post">
             <div class="container" data-aos="fade-up">
-                <div class="row">
+                <div class="row mb-5">
                     <div class="col-sm">
 
                     </div>
@@ -31,8 +31,11 @@
 
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mb-5">
                     {!! $post->content !!}
+                </div>
+                <div class="row">
+                    <p><i>Dibuat oleh {{ $post->user->name }} pada {{ $post->created_at->format('d F Y') }}</i></p>
                 </div>
             </div>
         </section>

@@ -23,7 +23,7 @@
                 {{--begin::Content--}}
                 <div id="kt_account_profile_details" class="collapse show">
                     {{--begin::Form--}}
-                    <form class="form" action="{{ route('admin.posts.update', $post->id) }}" method="POST">
+                    <form class="form" action="{{ route('admin.posts.update', $post->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         {{--begin::Card body--}}
@@ -86,7 +86,7 @@
                                     </div>
                                     {{--end::Image input--}}
                                     {{--begin::Hint--}}
-                                    <div class="form-text">File type: png, jpg, jpeg, max 4 MB.</div>
+                                    <div class="form-text">File type: png, jpg, jpeg. File type: jpg, png, gif. Recommended resolution 800 x 533 px. Max 4 MB.</div>
                                     {{--end::Hint--}}
                                     @error('title') <div class="invalid-feedback">{{ $message }}</div> @enderror
                                 </div>

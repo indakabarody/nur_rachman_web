@@ -47,6 +47,7 @@ class PostController extends Controller
             'thumbnail' => 'nullable|file|mimes:png,jpg,jpeg,gif|max:4096',
             'content' => 'required|string|max:4294967295',
             'type' => 'required|string',
+            'show_post' => 'nullable|numeric',
         ]);
 
         if ($request->thumbnail != NULL) {
@@ -59,6 +60,8 @@ class PostController extends Controller
             $thumbnailFile = $request->file('thumbnail');
             $thumbnailFileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . $thumbnailFile->getClientOriginalExtension();
             $img = Image::make($thumbnailFile)->save($path . '/' . $thumbnailFileName);
+
+            $img->fit(800, 533);
             $img->save($path . '/' . $thumbnailFileName);
         }
 
@@ -127,6 +130,8 @@ class PostController extends Controller
             $thumbnailFile = $request->file('thumbnail');
             $thumbnailFileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . $thumbnailFile->getClientOriginalExtension();
             $img = Image::make($thumbnailFile)->save($path . '/' . $thumbnailFileName);
+
+            $img->fit(800, 533);
             $img->save($path . '/' . $thumbnailFileName);
         }
 
@@ -144,7 +149,7 @@ class PostController extends Controller
             'user_id' => Auth::user()->id,
             'title' => $request->title,
             'slug' => Str::slug($request->title),
-            'logo' => $logoFileName ?? $post->logo,
+            'thumbnail' => $thumbnailFileName ?? $post->thumbnail,
             'content' => $request->content,
             'type' => $request->type,
             'show_post' => $request->show_post ?? 0,
