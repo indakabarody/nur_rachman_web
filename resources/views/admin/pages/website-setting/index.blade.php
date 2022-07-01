@@ -142,7 +142,7 @@
                                 {{--end::Label--}}
                                 {{--begin::Col--}}
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" name="hero_text" class="form-control form-control-lg form-control-solid @error ('hero_text') is-invalid @enderror" placeholder="Masukkan Teks Depan" value="{{ old('hero_text') ?? $setting->hero_text }}" />
+                                    <input type="text" name="hero_text" class="form-control form-control-lg form-control-solid @error ('hero_text') is-invalid @enderror" placeholder="Masukkan Teks Depan" value="{{ old('hero_text') ?? $setting->hero_text ?? NULL }}" />
                                     @error('hero_text') <div class="invalid-feedback">{{ $message }}</div> @enderror
                                 </div>
                                 {{--end::Col--}}

@@ -37,7 +37,7 @@
                                 {{--end::Label--}}
                                 {{--begin::Col--}}
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" name="address" class="form-control form-control-lg form-control-solid @error ('address') is-invalid @enderror" placeholder="Masukkan Alamat" value="{{ old('address') ?? $setting->address }}" />
+                                    <input type="text" name="address" class="form-control form-control-lg form-control-solid @error ('address') is-invalid @enderror" placeholder="Masukkan Alamat" value="{{ old('address') ?? $setting->address ?? NULL }}" />
                                     @error('address') <div class="invalid-feedback">{{ $message }}</div> @enderror
                                 </div>
                                 {{--end::Col--}}
@@ -50,7 +50,7 @@
                                 {{--end::Label--}}
                                 {{--begin::Col--}}
                                 <div class="col-lg-8 fv-row">
-                                    <input type="text" name="phone" class="form-control form-control-lg form-control-solid @error ('phone') is-invalid @enderror" placeholder="Masukkan No Telp" value="{{ old('phone') ?? $setting->phone }}" />
+                                    <input type="text" name="phone" class="form-control form-control-lg form-control-solid @error ('phone') is-invalid @enderror" placeholder="Masukkan No Telp" value="{{ old('phone') ?? $setting->phone ?? NULL }}" />
                                     @error('phone') <div class="invalid-feedback">{{ $message }}</div> @enderror
                                 </div>
                                 {{--end::Col--}}
@@ -63,7 +63,7 @@
                                 {{--end::Label--}}
                                 {{--begin::Col--}}
                                 <div class="col-lg-8 fv-row">
-                                    <input type="email" name="email" class="form-control form-control-lg form-control-solid @error ('email') is-invalid @enderror" placeholder="Masukkan Email" value="{{ old('email') ?? $setting->email }}" />
+                                    <input type="email" name="email" class="form-control form-control-lg form-control-solid @error ('email') is-invalid @enderror" placeholder="Masukkan Email" value="{{ old('email') ?? $setting->email ?? NULL }}" />
                                     @error('email') <div class="invalid-feedback">{{ $message }}</div> @enderror
                                 </div>
                                 {{--end::Col--}}
