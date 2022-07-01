@@ -1,0 +1,7 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/indakaba/subdomains/nur-rachman.indakabarody.com/
+    - /bin/cp -r * $DEPLOYPATH
+    - /usr/local/bin/composer update
+    - php artisan storage:link
