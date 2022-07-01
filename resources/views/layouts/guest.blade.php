@@ -108,7 +108,7 @@
 						<div class="col-lg-3 col-md-6 footer-contact">
 							<h3>{{ config('app.name') }}</h3>
 							<p>
-								{{ $setting->address }} <br><br>
+								{{ $setting->address ?? NULL }} <br><br>
                                 @isset($setting->phone)
                                     <strong>Telp:</strong> {{ $setting->phone }}<br>
                                 @endisset
