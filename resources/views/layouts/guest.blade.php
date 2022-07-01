@@ -38,11 +38,11 @@
 		{{-- ======= Header ======= --}}
 		<header id="header" class="fixed-top">
 			<div class="container d-flex align-items-center">
-                @if ($setting->logo != NULL)
+                @isset ($setting->logo)
                     <a href="{{ route('home') }}" class="logo me-auto"><img src="{{ asset('storage/logos/' . $setting->logo) }}" alt="" class="img-fluid"></a>
                 @else
                     <h1 class="logo me-auto"><a href="{{ route('home') }}">{{ config('app.name') }}</a></h1>
-                @endif
+                @endisset
 
 				<nav id="navbar" class="navbar order-last order-lg-0">
 					<ul>
