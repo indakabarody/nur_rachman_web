@@ -17,8 +17,18 @@ class CreateSettingsTable extends Migration
             $table->tinyIncrements('id');
             $table->string('website_title')->nullable();
             $table->string('logo')->nullable();
-            $table->string('header_image')->nullable();
+            $table->string('hero_image')->nullable();
+            $table->string('hero_text')->nullable();
+            $table->string('accent_color', 10)->nullable();
             $table->string('copyright_text')->nullable();
+            $table->text('address')->nullable();
+            $table->string('phone', 20)->nullable();
+            $table->string('email')->nullable();
+            $table->string('smtp_host')->nullable();
+            $table->string('smtp_port')->nullable();
+            $table->string('smtp_secure')->nullable();
+            $table->string('smtp_username')->nullable();
+            $table->string('smtp_password')->nullable();
             $table->timestamps();
         });
     }
