@@ -31,7 +31,7 @@ class WebsiteSettingController extends Controller
         ]);
 
         if ($request->logo != NULL) {
-            $path = storage_path('app/public/logos/');
+            $path = public_path('storage/logos/');
 
             if (!File::isDirectory($path)) {
                 File::makeDirectory($path, 0777, true);
@@ -45,7 +45,7 @@ class WebsiteSettingController extends Controller
 
         if ($request->logo_remove != NULL) {
             if ($setting->logo != NULL) {
-                File::delete(storage_path('app/public/logos/' . $setting->logo));
+                File::delete(public_path('storage/logos/' . $setting->logo));
             }
 
             $setting->update([
@@ -54,7 +54,7 @@ class WebsiteSettingController extends Controller
         }
 
         if ($request->hero_image != NULL) {
-            $path = storage_path('app/public/hero-images/');
+            $path = public_path('storage/hero-images/');
 
             if (!File::isDirectory($path)) {
                 File::makeDirectory($path, 0777, true);
@@ -68,7 +68,7 @@ class WebsiteSettingController extends Controller
 
         if ($request->hero_image_remove != NULL) {
             if ($setting->hero_image != NULL) {
-                File::delete(storage_path('app/public/hero-images/' . $setting->hero_image));
+                File::delete(public_path('storage/hero-images/' . $setting->hero_image));
             }
 
             $setting->update([

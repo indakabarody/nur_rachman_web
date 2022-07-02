@@ -104,7 +104,7 @@ class UserController extends Controller
         ]);
 
         if ($request->image != NULL) {
-            $path = storage_path('app/public/user-images/');
+            $path = public_path('storage/user-images/');
 
             if (!File::isDirectory($path)) {
                 File::makeDirectory($path, 0777, true);
@@ -124,7 +124,7 @@ class UserController extends Controller
 
         if ($request->image_remove != NULL) {
             if ($user->image != NULL) {
-                File::delete(storage_path('app/public/user-images/' . $user->image));
+                File::delete(public_path('storage/user-images/' . $user->image));
             }
 
             $user->update([
@@ -160,7 +160,7 @@ class UserController extends Controller
         $user = User::where('id', $id)->where('role', '!=', 'Super Admin')->firstOrFail();
 
         if ($user->image != NULL) {
-            File::delete(storage_path('app/public/user-images/' . $user->image));
+            File::delete(public_path('storage/user-images/' . $user->image));
         }
 
         $user->delete();

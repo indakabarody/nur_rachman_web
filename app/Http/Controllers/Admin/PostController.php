@@ -51,7 +51,7 @@ class PostController extends Controller
         ]);
 
         if ($request->thumbnail != NULL) {
-            $path = storage_path('app/public/post-thumbnails/');
+            $path = public_path('storage/post-thumbnails/');
 
             if (!File::isDirectory($path)) {
                 File::makeDirectory($path, 0777, true);
@@ -121,7 +121,7 @@ class PostController extends Controller
         ]);
 
         if ($request->thumbnail != NULL) {
-            $path = storage_path('app/public/post-thumbnails/');
+            $path = public_path('storage/post-thumbnails/');
 
             if (!File::isDirectory($path)) {
                 File::makeDirectory($path, 0777, true);
@@ -137,7 +137,7 @@ class PostController extends Controller
 
         if ($request->thumbnail_remove != NULL) {
             if ($post->thumbnail != NULL) {
-                File::delete(storage_path('app/public/post-thumbnails/' . $post->thumbnail));
+                File::delete(public_path('storage/post-thumbnails/' . $post->thumbnail));
             }
 
             $post->update([
