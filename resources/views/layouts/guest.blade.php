@@ -82,8 +82,38 @@
                         @endphp
 
                         @if($postCount > 0)
-                            <li><a href="{{ route('posts.index') }}">Media</a></li>
+                            <li><a href="{{ route('posts.index') }}">Berita</a></li>
                         @endif
+
+                        @php
+                            $socialMedias = App\Models\SocialMedia::where('show_social_media', 1)->orderBy('name', 'ASC')->get();
+                        @endphp
+
+                        @isset($socialMedias)
+                            <li class="dropdown">
+                                <a href="#"><span>Media Sosial</span> <i class="bi bi-chevron-down"></i></a>
+                                <ul>
+                                    @foreach ($socialMedias as $socialMedia)
+                                        <li><a href="{{ $socialMedia->url }}" target="_blank">{{ $socialMedia->name }}</a></li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                        @endisset
+
+                        @php
+                            $informations = App\Models\Information::where('show_information', 1)->orderBy('title', 'ASC')->get();
+                        @endphp
+
+                        @isset($informations)
+                            <li class="dropdown">
+                                <a href="#"><span>Informasi</span> <i class="bi bi-chevron-down"></i></a>
+                                <ul>
+                                    @foreach ($informations as $information)
+                                        <li><a href="{{ route('informations.show', $information->slug) }}">{{ $information->title }}</a></li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                        @endisset
 
                         @php
                             $pages = App\Models\Page::where('show_page', 1)->orderBy('title', 'ASC')->get();

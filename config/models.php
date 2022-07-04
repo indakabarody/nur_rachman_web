@@ -284,7 +284,7 @@ return [
             'migrations',
             'password_resets',
             'personal_access_tokens',
-            'users',
+            // 'users',
         ],
 
         /*

@@ -6,9 +6,11 @@ use App\Http\Controllers\Admin\ContactSettingController as AdminContactSettingCo
 use App\Http\Controllers\Admin\EditProfileController as AdminEditProfileController;
 use App\Http\Controllers\Admin\EducationController as AdminEducationController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
+use App\Http\Controllers\Admin\InformationController as AdminInformationController;
 use App\Http\Controllers\Admin\PageController as AdminPageController;
 use App\Http\Controllers\Admin\PostController as AdminPostController;
 use App\Http\Controllers\Admin\SmtpSettingController as AdminSmtpSettingController;
+use App\Http\Controllers\Admin\SocialMediaController as AdminSocialMediaController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\WebsiteSettingController as AdminWebsiteSettingController;
 use Illuminate\Support\Facades\Route;
@@ -35,6 +37,10 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'active', 'applywebs
     Route::resource('educations', AdminEducationController::class);
 
     Route::resource('abouts', AdminAboutController::class);
+
+    Route::resource('informations', AdminInformationController::class);
+
+    Route::resource('social-medias', AdminSocialMediaController::class);
 
     Route::prefix('/website-setting')->name('website-setting.')->group(function () {
         Route::get('/', [AdminWebsiteSettingController::class, 'index'])->name('index');

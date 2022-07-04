@@ -3,6 +3,7 @@
 use App\Http\Controllers\Guest\AboutController as GuestAboutController;
 use App\Http\Controllers\Guest\EducationController as GuestEducationController;
 use App\Http\Controllers\Guest\HomeController as GuestHomeController;
+use App\Http\Controllers\Guest\InformationController as GuestInformationController;
 use App\Http\Controllers\Guest\PageController as GuestPageController;
 use App\Http\Controllers\Guest\PostController as GuestPostController;
 use Illuminate\Support\Facades\Route;
@@ -28,5 +29,10 @@ Route::middleware('applywebsettings')->group(function () {
     Route::prefix('/posts')->name('posts.')->group(function () {
         Route::get('/', [GuestPostController::class, 'index'])->name('index');
         Route::get('/{slug}', [GuestPostController::class, 'show'])->name('show');
+    });
+
+    Route::prefix('/informations')->name('informations.')->group(function () {
+        Route::get('/', [GuestInformationController::class, 'index'])->name('index');
+        Route::get('/{slug}', [GuestInformationController::class, 'show'])->name('show');
     });
 });

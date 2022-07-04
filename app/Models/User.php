@@ -27,12 +27,13 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string|null $remember_token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property string|null $userscol
  *
  * @property Collection|About[] $abouts
  * @property Collection|Education[] $education
+ * @property Collection|Information[] $information
  * @property Collection|Page[] $pages
  * @property Collection|Post[] $posts
+ * @property Collection|SocialMedia[] $social_media
  *
  * @package App\Models
  */
@@ -63,8 +64,7 @@ class User extends Authenticatable
 		'email_verified_at',
 		'password',
 		'is_activated',
-		'remember_token',
-		'userscol'
+		'remember_token'
 	];
 
 	public function abouts()
@@ -77,6 +77,11 @@ class User extends Authenticatable
 		return $this->hasMany(Education::class);
 	}
 
+	public function information()
+	{
+		return $this->hasMany(Information::class);
+	}
+
 	public function pages()
 	{
 		return $this->hasMany(Page::class);
@@ -85,5 +90,10 @@ class User extends Authenticatable
 	public function posts()
 	{
 		return $this->hasMany(Post::class);
+	}
+
+	public function social_media()
+	{
+		return $this->hasMany(SocialMedia::class);
 	}
 }
