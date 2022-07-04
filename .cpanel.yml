@@ -3,4 +3,5 @@ deployment:
   tasks:
     - export DEPLOYPATH=/home/nurrach1/public_html/
     - /bin/cp -r * $DEPLOYPATH
+    - cd * $DEPLOYPATH
     - /usr/local/bin/composer update
