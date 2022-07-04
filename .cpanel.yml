@@ -4,4 +4,3 @@ deployment:
     - export DEPLOYPATH=/home/nurrach1/public_html/
     - /bin/cp -r * $DEPLOYPATH
     - /usr/local/bin/composer update
-    - php artisan storage:link
