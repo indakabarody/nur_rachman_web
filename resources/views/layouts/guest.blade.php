@@ -48,7 +48,7 @@
 					<ul>
 						<li><a href="{{ route('home') }}">Beranda</a></li>
                         @php
-                            $abouts = App\Models\About::where('show_about', 1)->orderBy('title', 'ASC')->get();
+                            $abouts = App\Models\About::where('show_about', 1)->get();
                         @endphp
 
                         @isset($abouts)
@@ -63,7 +63,7 @@
                         @endisset
 
                         @php
-                            $educations = App\Models\Education::where('show_education', 1)->orderBy('title', 'ASC')->get();
+                            $educations = App\Models\Education::where('show_education', 1)->get();
                         @endphp
 
                         @isset($educations)
@@ -78,7 +78,7 @@
                         @endisset
 
                         @php
-                            $postCount = App\Models\Post::where('show_post', 1)->orderBy('title', 'ASC')->count();
+                            $postCount = App\Models\Post::where('show_post', 1)->count();
                         @endphp
 
                         @if($postCount > 0)
@@ -86,7 +86,7 @@
                         @endif
 
                         @php
-                            $socialMedias = App\Models\SocialMedia::where('show_social_media', 1)->orderBy('name', 'ASC')->get();
+                            $socialMedias = App\Models\SocialMedia::where('show_social_media', 1)->get();
                         @endphp
 
                         @isset($socialMedias)
@@ -101,7 +101,7 @@
                         @endisset
 
                         @php
-                            $informations = App\Models\Information::where('show_information', 1)->orderBy('title', 'ASC')->get();
+                            $informations = App\Models\Information::where('show_information', 1)->get();
                         @endphp
 
                         @isset($informations)
@@ -116,7 +116,7 @@
                         @endisset
 
                         @php
-                            $pages = App\Models\Page::where('show_page', 1)->orderBy('title', 'ASC')->get();
+                            $pages = App\Models\Page::where('show_page', 1)->get();
                         @endphp
 
                         @foreach ($pages as $page)
